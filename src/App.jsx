@@ -31,7 +31,10 @@ const App = () => {
                     {post.title}
                   </p>
                   <div className="mt-4 text-left text-slate-700">
-                    <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                    <div
+                      className="line-clamp-2"
+                      dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
                   </div>
                 </div>
               </div>
