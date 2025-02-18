@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { posts } from "./data/posts";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="max-w-3xl mx-auto">
+      <ul className="flex flex-col gap-5">
+        {posts.map((post) => (
+          <li key={post.id} className="border border-gray-300 p-4">
+            <a href="#">
+              <div>
+                <div>
+                  <div className="flex justify-between">
+                    <div className="text-slate-400 text-sm">
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </div>
+                    <div>
+                      <div className="flex gap-2">
+                        {post.categories.map((category, index) => (
+                          <div
+                            key={index}
+                            className="border border-blue-500 p-1 text-sm rounded text-blue-500"
+                          >
+                            {category}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-2xl text-left mt-4 text-slate-900">
+                    {post.title}
+                  </p>
+                  <div className="mt-4 text-left text-slate-700">
+                    <div
+                      className="line-clamp-2"
+                      dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default App
+export default App;
