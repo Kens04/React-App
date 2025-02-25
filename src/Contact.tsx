@@ -3,20 +3,20 @@ import React, { useState } from "react";
 export const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [body, setBody] = useState("");
-  const [errors, setErrors] = useState({ name: "", email: "", body: "" });
+  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
   const [disabled, setDisabled] = useState(false);
 
   const handleClear = () => {
     setName("");
     setEmail("");
-    setBody("");
+    setMessage("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newError = { name: "", email: "", body: "" };
+    const newError = { name: "", email: "", message: "" };
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (name.length === 0) {
@@ -31,17 +31,21 @@ export const Contact = () => {
       newError.email = "メールアドレスの形式が正しくありません。";
     }
 
-    if (body.length === 0) {
-      newError.body = "本文は必須です。";
-    } else if (body.length > 500) {
-      newError.body = "本文は500文字以内で入力してください。";
+    if (message.length === 0) {
+      newError.message = "本文は必須です。";
+    } else if (message.length > 500) {
+      newError.message = "本文は500文字以内で入力してください。";
     }
 
-    if (newError.name !== "" || newError.email !== "" || newError.body !== "") {
+    if (
+      newError.name !== "" ||
+      newError.email !== "" ||
+      newError.message !== ""
+    ) {
       setErrors(newError);
       return;
     } else {
-      setErrors({ name: "", email: "", body: "" });
+      setErrors({ name: "", email: "", message: "" });
       setDisabled(true);
     }
 
@@ -51,9 +55,10 @@ export const Contact = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, body }),
+          body: JSON.stringify({ name, email, message }),
         }
       );
+      console.log({ name, email, message });
       if (response.ok) {
         alert("送信しました");
       }
@@ -62,7 +67,7 @@ export const Contact = () => {
     } finally {
       setName("");
       setEmail("");
-      setBody("");
+      setMessage("");
       setDisabled(false);
     }
   };
@@ -117,11 +122,11 @@ export const Contact = () => {
                 className="border border-slate-400 w-full rounded-md h-50 p-3"
                 name="body"
                 id="body"
-                value={body}
+                value={message}
                 disabled={disabled}
-                onChange={(e) => setBody(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
               />
-              <div className="text-red-700">{errors.body}</div>
+              <div className="text-red-700">{errors.message}</div>
             </div>
           </div>
           <div className="mt-10 flex justify-center gap-4">
