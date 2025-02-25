@@ -27,7 +27,7 @@ const Home = () => {
   if (isLoading) return <div>読み込み中...</div>;
 
   return (
-    <div className="max-w-3xl mx-auto mt-10">
+    <div className="max-w-3xl mx-auto">
       <ul className="flex flex-col gap-5">
         {posts.map((post) => (
           <li key={post.id} className="border border-gray-300 p-4">
