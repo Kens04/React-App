@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Input } from "./components/Input";
 
 export const Contact = () => {
   const [name, setName] = useState("");
@@ -83,8 +84,7 @@ export const Contact = () => {
               お名前
             </label>
             <div className="w-full">
-              <input
-                className="border border-slate-400 w-full rounded-md p-3"
+              <Input
                 type="text"
                 id="name"
                 name="name"
@@ -100,8 +100,7 @@ export const Contact = () => {
               メールアドレス
             </label>
             <div className="w-full">
-              <input
-                className="border border-slate-400 w-full rounded-md p-3"
+              <Input
                 type="email"
                 id="email"
                 name="email"
