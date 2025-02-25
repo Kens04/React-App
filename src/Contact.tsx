@@ -113,14 +113,14 @@ export const Contact = () => {
             </div>
           </div>
           <div className="flex gap-2 items-center mt-5">
-            <label className="w-48" htmlFor="body">
+            <label className="w-48" htmlFor="message">
               本文
             </label>
             <div className="w-full">
               <textarea
                 className="border border-slate-400 w-full rounded-md h-50 p-3"
-                name="body"
-                id="body"
+                name="message"
+                id="message"
                 value={message}
                 disabled={disabled}
                 onChange={(e) => setMessage(e.target.value)}
