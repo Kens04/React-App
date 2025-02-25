@@ -1,10 +1,33 @@
 import { Link } from "react-router-dom";
 import "./App.css";
-import { posts } from "./data/posts";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts"
+      );
+      const data = await res.json();
+      setPosts(data.posts);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (isLoading) return <div>読み込み中...</div>;
+
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto mt-10">
       <ul className="flex flex-col gap-5">
         {posts.map((post) => (
           <li key={post.id} className="border border-gray-300 p-4">
